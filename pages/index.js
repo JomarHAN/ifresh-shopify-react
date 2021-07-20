@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Button } from 'semantic-ui-react'
 import styles from '../styles/Home.module.css'
+import { client } from '../utils/shopify'
 
-export default function Home() {
+export default function Home({ props }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -15,4 +16,13 @@ export default function Home() {
       <Button color='purple'>Purple</Button>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`https://.../data`)
+  const data = await res.json()
+
+  // Pass data to the page via props
+  return { props: { data } }
 }
